@@ -19,12 +19,44 @@ void setup() {
   Serial.begin(115200);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void forword(){
+  dxl_wb.goalPosition(1,2000);
+  dxl_wb.goalPosition(2,2000);
+
+  delay(10);
+}
+
+void b_stop(){
   dxl_wb.goalPosition(1,0);
   dxl_wb.goalPosition(2,0);
 
-  delay(2000);
+  delay(10);
+}
+
+String control;
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  while(!Serial.available()){
+    control = Serial.readString();
+    // Serial.write(control);
+    if(control == "s"){
+      Serial.println("stop");
+      b_stop();
+    } else if(control == "f"){
+      Serial.println("forward");
+      forword();
+    }else{
+      
+    }
+  
+  }
+  
+  
+
+
+  
+  
 
   dxl_wb.goalPosition(1,2000);
   dxl_wb.goalPosition(2,2000);
